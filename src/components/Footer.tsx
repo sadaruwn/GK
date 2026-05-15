@@ -20,7 +20,7 @@ export default function Footer() {
               rel="noopener noreferrer" 
               className={styles.socialIcon}
             >
-              <img src="/youtube-icon.png" alt="YouTube" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" />
             </a>
             <a 
               href="https://facebook.com" 
@@ -28,22 +28,14 @@ export default function Footer() {
               rel="noopener noreferrer" 
               className={styles.socialIcon}
             >
-              <img src="/facebook-icon.png" alt="Facebook" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" />
             </a>
             <Link 
               href="/admin" 
               className={styles.socialIcon}
             >
-              <img src="/admin-icon.png" alt="Admin Panel" />
+              <img src="https://cdn-icons-png.flaticon.com/512/6024/6024190.png" alt="Admin Panel" />
             </Link>
-          </div>
-        </div>
-        
-        <div className={styles.bottom}>
-          <p>&copy; {new Date().getFullYear()} GK Learning. All rights reserved.</p>
-          <div className={styles.links}>
-            <Link href="#">Privacy Policy</Link>
-            <Link href="#">Terms of Service</Link>
           </div>
         </div>
       </div>
