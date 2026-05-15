@@ -58,11 +58,19 @@
 .avatar {
   width: 36px;
   height: 36px;
-  background: var(--primary);
+  background: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.headerLogo {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
 }
 
 .name {

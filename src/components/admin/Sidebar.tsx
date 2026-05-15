@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileQuestion, Video, Settings, LogOut, Youtube, Menu, X as CloseIcon } from "lucide-react";
+import { FileQuestion, Video, Settings, LogOut, Menu, X as CloseIcon } from "lucide-react";
 import styles from "./Sidebar.module.css";
 
 const MENU_ITEMS = [
@@ -30,7 +30,11 @@ export default function Sidebar() {
 
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <div className={styles.logoContainer}>
-          <Youtube size={28} color="var(--primary)" />
+          <img 
+            src="https://cdn-icons-png.flaticon.com/512/3058/3058995.png" 
+            alt="Logo" 
+            className={styles.sidebarLogo}
+          />
           <span className={styles.logoText}>Admin Panel</span>
         </div>
         

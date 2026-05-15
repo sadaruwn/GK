@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink, User } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -20,7 +20,11 @@ export default function Header() {
         
         <div className={styles.profile}>
           <div className={styles.avatar}>
-            <User size={20} color="white" />
+            <img 
+              src="https://cdn-icons-png.flaticon.com/512/3058/3058995.png" 
+              alt="Admin" 
+              className={styles.headerLogo}
+            />
           </div>
           <span className={styles.name}>Admin</span>
         </div>
