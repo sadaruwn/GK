@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Plus, Edit2, Trash2, X, PlusCircle, Trash, RefreshCw } from "lucide-react";
 import styles from "./page.module.css";
 import { supabase } from "@/lib/supabase";
-import SinhalaConverter from "@/components/admin/SinhalaConverter";
 
 interface Question {
   text: string;
@@ -22,7 +21,6 @@ export default function QuestionsManagement() {
   const [sets, setSets] = useState<QuestionSet[]>([]);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showConverter, setShowConverter] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Form states for a set of 5 questions
@@ -140,10 +138,6 @@ export default function QuestionsManagement() {
       <div className={styles.header}>
         <h1 className={styles.title}>Daily Question Sets (5 Qs)</h1>
         <div className={styles.headerActions}>
-          <button className={styles.convertHelperBtn} onClick={() => setShowConverter(true)}>
-            <RefreshCw size={18} />
-            <span>Sinhala Converter</span>
-          </button>
           {!isAdding && (
             <button className={styles.addBtn} onClick={() => setIsAdding(true)}>
               <Plus size={18} />
@@ -152,8 +146,6 @@ export default function QuestionsManagement() {
           )}
         </div>
       </div>
-
-      {showConverter && <SinhalaConverter onClose={() => setShowConverter(false)} />}
 
       {isAdding && (
         <div className={styles.formCard}>

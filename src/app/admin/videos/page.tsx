@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Plus, Edit2, Trash2, X, Upload, ImageIcon, Loader2 } from "lucide-react";
 import styles from "./page.module.css";
 import { supabase } from "@/lib/supabase";
 
@@ -19,6 +19,8 @@ export default function VideosManagement() {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form states
   const [formData, setFormData] = useState({
@@ -38,7 +40,7 @@ export default function VideosManagement() {
     const { data, error } = await supabase
       .from('videos')
       .select('*')
-      .order('id', { ascending: false });
+      .order('created_at', { ascending: false });
     
     if (error) {
       console.error('Error fetching videos:', error);
@@ -48,8 +50,40 @@ export default function VideosManagement() {
     setLoading(false);
   };
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError, data } = await supabase.storage
+        .from('thumbnails')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('thumbnails')
+        .getPublicUrl(filePath);
+
+      setFormData({ ...formData, thumbnail: publicUrl });
+    } catch (error: any) {
+      alert('Error uploading image: ' + error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.thumbnail) {
+      alert("Please upload a thumbnail first!");
+      return;
+    }
     
     if (editingId) {
       const { error } = await supabase
@@ -78,6 +112,7 @@ export default function VideosManagement() {
       views: "",
       time: "",
     });
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleEdit = (v: Video) => {
@@ -134,10 +169,33 @@ export default function VideosManagement() {
               <label>YouTube Link</label>
               <input required type="text" value={formData.link} onChange={e => setFormData({...formData, link: e.target.value})} placeholder="https://youtube.com/..." />
             </div>
+            
             <div className={styles.inputGroup}>
-              <label>Thumbnail Image URL</label>
-              <input required type="text" value={formData.thumbnail} onChange={e => setFormData({...formData, thumbnail: e.target.value})} placeholder="https://images.unsplash.com/..." />
+              <label>Thumbnail Image</label>
+              <div className={styles.uploadBox}>
+                {formData.thumbnail ? (
+                  <div className={styles.previewContainer}>
+                    <img src={formData.thumbnail} alt="Preview" className={styles.previewImg} />
+                    <button type="button" className={styles.changeImgBtn} onClick={() => fileInputRef.current?.click()}>
+                      <Upload size={16} /> Change Image
+                    </button>
+                  </div>
+                ) : (
+                  <button type="button" className={styles.uploadPlaceholder} onClick={() => fileInputRef.current?.click()} disabled={uploading}>
+                    {uploading ? <Loader2 className={styles.spin} /> : <ImageIcon size={32} />}
+                    <span>{uploading ? "Uploading..." : "Click to Upload Thumbnail"}</span>
+                  </button>
+                )}
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  onChange={handleFileUpload} 
+                  accept="image/*" 
+                  style={{ display: 'none' }} 
+                />
+              </div>
             </div>
+
             <div className={styles.optionsGrid}>
               <div className={styles.inputGroup}>
                 <label>View Count</label>
@@ -150,7 +208,9 @@ export default function VideosManagement() {
             </div>
             <div className={styles.formActions}>
               <button type="button" className={styles.cancelBtn} onClick={resetForm}>Cancel</button>
-              <button type="submit" className={styles.saveBtn}>{editingId ? "Update Video" : "Save Video"}</button>
+              <button type="submit" className={styles.saveBtn} disabled={uploading}>
+                {editingId ? "Update Video" : "Save Video"}
+              </button>
             </div>
           </form>
         </div>

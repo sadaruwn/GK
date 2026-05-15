@@ -3,48 +3,97 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px 20px;
-  z-index: 999;
-  border-top: 1px solid var(--border-color);
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-  display: none; /* Only show on mobile */
+  z-index: 1000;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255, 0, 0, 0.2);
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .content {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 30px;
 }
 
 .textGroup {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
 }
 
 .title {
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 900;
+  font-size: 1.3rem;
   color: white;
+  margin: 0;
 }
 
 .subtitle {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
+  margin: 4px 0 0;
 }
 
-.officialSubscribe {
+.subscribeActions {
   display: flex;
   align-items: center;
-  background: white;
-  padding: 6px 12px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
+  gap: 20px;
 }
 
-@media (max-width: 600px) {
+.officialWrapper {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  transform: scale(1.5);
+  transform-origin: right center;
+}
+
+.fallbackBtn {
+  display: none; /* Hide if we want to focus on the official big widget */
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 5px 30px rgba(255, 0, 0, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4); }
+}
+
+.fallbackBtn:hover {
+  transform: translateY(-3px) scale(1.08);
+  filter: brightness(1.1);
+}
+
+@media (max-width: 768px) {
   .stickyBar {
+    padding: 16px;
+  }
+
+  .content {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .title {
+    font-size: 1.1rem;
+  }
+
+  .subtitle {
     display: block;
+    font-size: 0.85rem;
+  }
+
+  .officialWrapper {
+    display: none;
+  }
+
+  .fallbackBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px;
+    font-size: 1.1rem;
   }
 }

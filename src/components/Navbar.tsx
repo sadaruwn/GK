@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Flame, Youtube, Bell } from "lucide-react";
+import { Flame, Youtube, Bell, ExternalLink } from "lucide-react";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -35,13 +35,27 @@ export default function Navbar() {
             <span>{streak} Day{streak !== 1 ? 's' : ''}</span>
           </div>
           
-          <div className={styles.officialSubscribe}>
-            <div 
-              className="g-ytsubscribe" 
-              data-channelid="UC6TYUtPYJLIcKIf03AtMvIg" 
-              data-layout="default" 
-              data-count="default"
-            ></div>
+          <div className={styles.subscribeWrapper}>
+            {/* Desktop Widget */}
+            <div className={styles.officialSubscribe}>
+              <div 
+                className="g-ytsubscribe" 
+                data-channelid="UC6TYUtPYJLIcKIf03AtMvIg" 
+                data-layout="default" 
+                data-count="default"
+              ></div>
+            </div>
+
+            {/* Mobile Fallback Button */}
+            <a 
+              href="https://www.youtube.com/channel/UC6TYUtPYJLIcKIf03AtMvIg?sub_confirmation=1" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.mobileSubBtn}
+            >
+              <Youtube size={16} />
+              <span>Sub</span>
+            </a>
           </div>
         </div>
       </div>

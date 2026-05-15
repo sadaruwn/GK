@@ -1,15 +1,17 @@
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 100;
-  border-bottom: 1px solid var(--border-color);
-  padding: 15px 0;
+  z-index: 1000;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(25px);
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,47 +20,61 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: -0.5px;
+  gap: 12px;
 }
 
-.logoIcon {
-  filter: drop-shadow(0 0 8px var(--glow-primary));
+.logoText {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: white;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 30px; /* Increased gap for larger button */
 }
 
 .streakBadge {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(245, 124, 0, 0.1);
-  border: 1px solid rgba(245, 124, 0, 0.2);
-  padding: 6px 12px;
+  gap: 8px;
+  background: rgba(255, 171, 0, 0.1);
+  padding: 8px 16px;
   border-radius: var(--radius-full);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 800;
   color: var(--warning-color);
+  border: 1px solid rgba(255, 171, 0, 0.2);
+}
+
+.subscribeWrapper {
+  display: flex;
+  align-items: center;
+  /* Making the official widget look BIG */
+  transform: scale(1.4); 
+  transform-origin: right center;
 }
 
 .officialSubscribe {
+  min-height: 30px;
   display: flex;
   align-items: center;
-  background: white;
-  padding: 4px 8px;
-  border-radius: var(--radius-md);
-  height: 34px;
-  overflow: hidden;
 }
 
-@media (max-width: 600px) {
-  .officialSubscribe {
-    display: none;
+.mobileSubBtn {
+  display: none; /* Hide custom button if official widget is present and scaled */
+}
+
+@media (max-width: 768px) {
+  .logoText {
+    font-size: 1.2rem;
+  }
+  
+  .streakBadge {
+    display: none; /* Hide streak on very small screens to give space for BIG button */
+  }
+
+  .subscribeWrapper {
+    transform: scale(1.2); /* Slightly smaller on mobile but still big */
   }
 }
