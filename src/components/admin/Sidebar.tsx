@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileQuestion, Video, Settings, LogOut, Youtube } from "lucide-react";
+import { FileQuestion, Video, Settings, LogOut, Youtube, Menu, X as CloseIcon } from "lucide-react";
 import styles from "./Sidebar.module.css";
 
 const MENU_ITEMS = [
@@ -13,44 +14,58 @@ const MENU_ITEMS = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <aside className={styles.sidebar}>
-      <div className={styles.logoContainer}>
-        <Youtube size={28} color="var(--primary)" />
-        <span className={styles.logoText}>Admin Panel</span>
-      </div>
-      
-      <nav className={styles.nav}>
-        {MENU_ITEMS.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.path;
-          
-          return (
-            <Link 
-              key={item.path} 
-              href={item.path}
-              className={`${styles.navItem} ${isActive ? styles.active : ""}`}
-            >
-              <Icon size={20} className={styles.icon} />
-              <span>{item.name}</span>
-            </Link>
-          );
-        })}
-      </nav>
-      
-      <div className={styles.footer}>
-        <button 
-          onClick={() => {
-            sessionStorage.removeItem("admin_auth");
-            window.location.href = "/";
-          }} 
-          className={styles.logoutBtn}
-        >
-          <LogOut size={20} />
-          <span>Exit Admin</span>
-        </button>
-      </div>
-    </aside>
+    <>
+      {/* Mobile Toggle Button */}
+      <button className={styles.mobileToggle} onClick={toggleSidebar}>
+        {isOpen ? <CloseIcon size={24} /> : <Menu size={24} />}
+      </button>
+
+      {/* Overlay for mobile */}
+      {isOpen && <div className={styles.overlay} onClick={toggleSidebar} />}
+
+      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
+        <div className={styles.logoContainer}>
+          <Youtube size={28} color="var(--primary)" />
+          <span className={styles.logoText}>Admin Panel</span>
+        </div>
+        
+        <nav className={styles.nav}>
+          {MENU_ITEMS.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.path;
+            
+            return (
+              <Link 
+                key={item.path} 
+                href={item.path}
+                className={`${styles.navItem} ${isActive ? styles.active : ""}`}
+                onClick={() => setIsOpen(false)} // Close on navigate
+              >
+                <Icon size={20} className={styles.icon} />
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
+        </nav>
+        
+        <div className={styles.footer}>
+          <button 
+            onClick={() => {
+              sessionStorage.removeItem("admin_auth");
+              window.location.href = "/";
+            }} 
+            className={styles.logoutBtn}
+          >
+            <LogOut size={20} />
+            <span>Exit Admin</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
