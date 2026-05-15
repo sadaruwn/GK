@@ -23,7 +23,7 @@ export default function Footer() {
               <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" />
             </a>
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/amarasriherath.lk/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.socialIcon}
