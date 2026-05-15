@@ -34,7 +34,7 @@ export default function Footer() {
               href="/admin" 
               className={styles.socialIcon}
             >
-              <img src="https://cdn-icons-png.flaticon.com/512/3058/3058995.png" alt="Admin Panel" />
+              <img src="https://cdn-icons-png.flaticon.com/512/1061/1061370.png" alt="Admin Panel" />
             </Link>
           </div>
         </div>

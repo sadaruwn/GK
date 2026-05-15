@@ -31,7 +31,7 @@ export default function Sidebar() {
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <div className={styles.logoContainer}>
           <img 
-            src="https://cdn-icons-png.flaticon.com/512/3058/3058995.png" 
+            src="https://cdn-icons-png.flaticon.com/512/1061/1061370.png" 
             alt="Logo" 
             className={styles.sidebarLogo}
           />

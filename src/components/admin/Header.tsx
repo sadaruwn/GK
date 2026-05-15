@@ -21,7 +21,7 @@ export default function Header() {
         <div className={styles.profile}>
           <div className={styles.avatar}>
             <img 
-              src="https://cdn-icons-png.flaticon.com/512/3058/3058995.png" 
+              src="https://cdn-icons-png.flaticon.com/512/1061/1061370.png" 
               alt="Admin" 
               className={styles.headerLogo}
             />
