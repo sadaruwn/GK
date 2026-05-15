@@ -241,3 +241,78 @@
     padding: 20px;
   }
 }
+
+.historyTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.historyTitle h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.completedCard {
+  border-color: rgba(0, 230, 118, 0.2);
+  background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(0, 230, 118, 0.05));
+}
+
+.historyPreview {
+  padding: 15px 0;
+}
+
+.historyMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.viewSolutionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(255, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.viewSolutionBtn:hover {
+  background: rgba(255, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.historyActions {
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.retryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.retryBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}

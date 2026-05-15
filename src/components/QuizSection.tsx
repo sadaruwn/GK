@@ -17,7 +17,7 @@ interface QuestionSet {
   questions: Question[];
 }
 
-export default function QuizSection() {
+export default function QuizSection({ setId }: { setId?: string }) {
   const [sets, setSets] = useState<QuestionSet[]>([]);
   const [history, setHistory] = useState<string[]>([]);
   const [selectedInSets, setSelectedInSets] = useState<Record<string, Record<number, string>>>({});
@@ -28,31 +28,61 @@ export default function QuizSection() {
   useEffect(() => {
     setIsMounted(true);
     fetchData();
-  }, []);
+
+    // Listen for real-time changes (only on home page)
+    if (!setId) {
+      const channel = supabase
+        .channel('question_sets_changes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'question_sets' },
+          () => {
+            fetchData();
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
+  }, [setId]);
 
   const fetchData = async () => {
     setLoading(true);
     
-    // Load history from localStorage (this remains local to user device)
+    // Load history from localStorage
     const savedHistory = localStorage.getItem("gk_set_history");
     let parsedHistory: string[] = [];
     if (savedHistory) {
       parsedHistory = JSON.parse(savedHistory);
       setHistory(parsedHistory);
+      // If we are looking at a specific set that's already in history, mark it as submitted
+      if (setId && parsedHistory.includes(setId)) {
+        setSubmittedSets([setId]);
+      }
     }
 
-    // Load sets from Supabase
-    const { data, error } = await supabase
-      .from('question_sets')
-      .select('*')
-      .order('created_at', { ascending: false });
+    let query = supabase.from('question_sets').select('*');
+
+    if (setId) {
+      query = query.eq('id', setId);
+    } else {
+      query = query.order('created_at', { ascending: false }).limit(1);
+    }
+
+    const { data, error } = await query;
     
     if (error) {
       console.error('Error fetching sets:', error);
     } else {
-      // Filter out sets already in history
-      const unanswered = (data || []).filter((s: any) => !parsedHistory.includes(s.id));
-      setSets(unanswered);
+      const result = data || [];
+      if (!setId) {
+        // On home page, only show if NOT in history
+        setSets(result.filter((s: any) => !parsedHistory.includes(s.id)));
+      } else {
+        setSets(result);
+      }
     }
     setLoading(false);
   };

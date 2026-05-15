@@ -17,16 +17,40 @@
   align-items: center;
 }
 
+.left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
 .logo {
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
 }
 
 .logoText {
   font-size: 1.6rem;
   font-weight: 900;
   color: white;
+}
+
+.navLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.navLink {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--primary);
 }
 
 .actions {

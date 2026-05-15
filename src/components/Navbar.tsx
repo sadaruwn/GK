@@ -16,9 +16,16 @@ export default function Navbar() {
   return (
     <nav className={`${styles.navbar} glass`}>
       <div className={styles.container}>
-        <div className={styles.logo}>
-          <Youtube className={styles.logoIcon} size={28} color="var(--primary)" />
-          <span className={styles.logoText}>GK Learning</span>
+        <div className={styles.left}>
+          <a href="/" className={styles.logo}>
+            <Youtube className={styles.logoIcon} size={28} color="var(--primary)" />
+            <span className={styles.logoText}>GK Learning</span>
+          </a>
+          
+          <div className={styles.navLinks}>
+            <a href="/" className={styles.navLink}>Home</a>
+            <a href="/history" className={styles.navLink}>History</a>
+          </div>
         </div>
         
         <div className={styles.actions}>
