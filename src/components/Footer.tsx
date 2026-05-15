@@ -12,29 +12,29 @@ export default function Footer() {
             <h2 className={styles.logoText}>GK Learning</h2>
             <p className={styles.tagline}>The #1 Platform for Sri Lankan Students.</p>
           </div>
-          
+
           <div className={styles.socials}>
-            <a 
-              href="https://www.youtube.com/channel/UC6TYUtPYJLIcKIf03AtMvIg?sub_confirmation=1" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://www.youtube.com/channel/UC6TYUtPYJLIcKIf03AtMvIg?sub_confirmation=1"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.socialIcon}
             >
               <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" />
             </a>
-            <a 
-              href="https://facebook.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.socialIcon}
             >
               <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" />
             </a>
-            <Link 
-              href="/admin" 
+            <Link
+              href="/admin"
               className={styles.socialIcon}
             >
-              <img src="https://cdn-icons-png.flaticon.com/512/1061/1061370.png" alt="Admin Panel" />
+              <img src="public/admin-logo.png" alt="Admin Panel" />
             </Link>
           </div>
         </div>
