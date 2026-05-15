@@ -119,7 +119,7 @@ export default function QuizSection({ setId }: { setId?: string }) {
     }
 
     // Add to session submitted list (to show reveal state)
-    setSubmittedSets(prev => [...prev, setId]);
+    setSubmittedSets(prev => Array.from(new Set([...prev, setId])));
     
     // Save to permanent history (so it hides on reload)
     const newHistory = [...history, setId];

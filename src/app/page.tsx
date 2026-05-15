@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import QuizSection from "@/components/QuizSection";
 import TrendingVideos from "@/components/TrendingVideos";
+import SubscribeCTA from "@/components/SubscribeCTA";
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 
@@ -26,6 +27,7 @@ export default function Home() {
         </div>
       </div>
       
+      <SubscribeCTA />
       <Footer />
     </main>
   );
