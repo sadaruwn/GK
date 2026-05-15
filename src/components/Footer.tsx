@@ -34,7 +34,7 @@ export default function Footer() {
               href="/admin"
               className={styles.socialIcon}
             >
-              <img src="public/admin-logo.png" alt="Admin Panel" />
+              <img src="/admin-logo.png" alt="Admin Panel" />
             </Link>
           </div>
         </div>

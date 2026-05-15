@@ -9,7 +9,6 @@ export default function SubscribeCTA() {
           <div className={styles.socialIcons}>
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube" className={styles.socialIcon} />
             <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" className={styles.socialIcon} />
-            <img src="/admin-logo.png" alt="Admin Logo" className={styles.socialIcon} />
           </div>
           <div className={styles.text}>
             <h2 className={styles.title}>අපගේ සමාජ මාධ්‍ය ජාලයන් හා එක්වන්න</h2>
