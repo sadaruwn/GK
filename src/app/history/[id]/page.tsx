@@ -1,6 +1,6 @@
 "use client";
 
-import { use } from "react";
+import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import QuizSection from "@/components/QuizSection";
 import TrendingVideos from "@/components/TrendingVideos";
@@ -8,9 +8,9 @@ import Footer from "@/components/Footer";
 import styles from "../../page.module.css";
 import { ChevronLeft } from "lucide-react";
 
-export default function HistoryDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const id = resolvedParams.id;
+export default function HistoryDetailPage() {
+  const params = useParams();
+  const id = params.id as string;
 
   return (
     <main className={styles.main}>

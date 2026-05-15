@@ -66,6 +66,7 @@ export default function QuizSection({ setId }: { setId?: string }) {
     let query = supabase.from('question_sets').select('*');
 
     if (setId) {
+      console.log("Fetching specific set ID:", setId);
       query = query.eq('id', setId);
     } else {
       query = query.order('created_at', { ascending: false }).limit(1);
@@ -76,7 +77,15 @@ export default function QuizSection({ setId }: { setId?: string }) {
     if (error) {
       console.error('Error fetching sets:', error);
     } else {
-      setSets(data || []);
+      const result = data || [];
+      if (!setId) {
+        setSets(result);
+      } else if (result.length > 0) {
+        setSets(result);
+      } else {
+        // Specific case: setId provided but not found in DB
+        setSets([]);
+      }
     }
     setLoading(false);
   };
