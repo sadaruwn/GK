@@ -90,7 +90,7 @@ export default function QuizSection({ setId }: { setId?: string }) {
         .map(s => s.id);
       
       if (alreadySubmitted.length > 0) {
-        setSubmittedSets(prev => [...new Set([...prev, ...alreadySubmitted])]);
+        setSubmittedSets(prev => Array.from(new Set([...prev, ...alreadySubmitted])));
       }
     }
     setLoading(false);
