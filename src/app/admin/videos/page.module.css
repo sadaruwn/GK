@@ -273,3 +273,21 @@
     grid-template-columns: 1fr;
   }
 }
+
+.inputWithLoader {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputLoader {
+  position: absolute;
+  right: 12px;
+  color: var(--primary);
+}
+
+.inputHint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}

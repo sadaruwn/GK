@@ -65,7 +65,16 @@ export default function AdminLayout({
     return (
       <div className={styles.loginOverlay}>
         <div className={styles.loginBox}>
-          <div className={styles.lockIcon}><Lock size={40} /></div>
+          <div className={styles.lockIcon}>
+            <img 
+              src="/admin-logo.png" 
+              alt="Admin Logo" 
+              style={{ width: '80px', height: '80px', objectFit: 'contain' }} 
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png';
+              }}
+            />
+          </div>
           <h2>Admin Login</h2>
           <p>Enter your password to manage GK Learning</p>
           

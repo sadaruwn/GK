@@ -21,9 +21,12 @@ export default function Header() {
         <div className={styles.profile}>
           <div className={styles.avatar}>
             <img 
-              src="https://cdn-icons-png.flaticon.com/512/1061/1061370.png" 
+              src="/admin-logo.png" 
               alt="Admin" 
               className={styles.headerLogo}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png';
+              }}
             />
           </div>
           <span className={styles.name}>Admin</span>

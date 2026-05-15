@@ -18,7 +18,15 @@ export default function Navbar() {
       <div className={styles.container}>
         <div className={styles.left}>
           <a href="/" className={styles.logo}>
-            <Youtube className={styles.logoIcon} size={28} color="var(--primary)" />
+            <img 
+              src="/admin-logo.png" 
+              alt="GK Learning Logo" 
+              className={styles.logoImage}
+              style={{ width: 48, height: 48, objectFit: 'contain' }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png';
+              }}
+            />
             <span className={styles.logoText}>GK Learning</span>
           </a>
           

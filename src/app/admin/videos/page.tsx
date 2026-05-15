@@ -50,6 +50,50 @@ export default function VideosManagement() {
     setLoading(false);
   };
 
+  const extractYoutubeId = (url: string) => {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[7].length === 11) ? match[7] : null;
+  };
+
+  const fetchYoutubeMetadata = async (url: string) => {
+    const videoId = extractYoutubeId(url);
+    if (!videoId) return;
+
+    // Set thumbnail automatically
+    const thumbnail = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    
+    setLoadingMetadata(true);
+    try {
+      // Fetch title using oEmbed (No API key needed)
+      const response = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
+      const data = await response.json();
+      
+      setFormData(prev => ({
+        ...prev,
+        title: data.title || prev.title,
+        thumbnail: thumbnail,
+        link: url
+      }));
+    } catch (error) {
+      console.error("Error fetching YouTube metadata:", error);
+      // Fallback: just set thumbnail
+      setFormData(prev => ({ ...prev, thumbnail, link: url }));
+    } finally {
+      setLoadingMetadata(false);
+    }
+  };
+
+  const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const url = e.target.value;
+    setFormData({ ...formData, link: url });
+    if (url.includes("youtube.com") || url.includes("youtu.be")) {
+      fetchYoutubeMetadata(url);
+    }
+  };
+
+  const [loadingMetadata, setLoadingMetadata] = useState(false);
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -81,7 +125,7 @@ export default function VideosManagement() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.thumbnail) {
-      alert("Please upload a thumbnail first!");
+      alert("Please enter a link or upload a thumbnail first!");
       return;
     }
     
@@ -162,12 +206,16 @@ export default function VideosManagement() {
           </div>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.inputGroup}>
-              <label>Video Title</label>
-              <input required type="text" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} placeholder="e.g. Master Biology in 10 Mins" />
+              <label>Video Title (Optional - Auto-filled)</label>
+              <input type="text" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} placeholder="e.g. Master Biology in 10 Mins" />
             </div>
             <div className={styles.inputGroup}>
               <label>YouTube Link</label>
-              <input required type="text" value={formData.link} onChange={e => setFormData({...formData, link: e.target.value})} placeholder="https://youtube.com/..." />
+              <div className={styles.inputWithLoader}>
+                <input required type="text" value={formData.link} onChange={handleLinkChange} placeholder="https://youtube.com/..." />
+                {loadingMetadata && <Loader2 className={`${styles.spin} ${styles.inputLoader}`} size={16} />}
+              </div>
+              <p className={styles.inputHint}>Paste link to auto-fill Title and Thumbnail</p>
             </div>
             
             <div className={styles.inputGroup}>
@@ -194,15 +242,16 @@ export default function VideosManagement() {
                   style={{ display: 'none' }} 
                 />
               </div>
+              <p className={styles.inputHint}>Auto-filled from YouTube, or upload your own</p>
             </div>
 
             <div className={styles.optionsGrid}>
               <div className={styles.inputGroup}>
-                <label>View Count</label>
-                <input required type="text" value={formData.views} onChange={e => setFormData({...formData, views: e.target.value})} placeholder="e.g. 120K" />
+                <label>Views (Required)</label>
+                <input required type="text" value={formData.views} onChange={e => setFormData({...formData, views: e.target.value})} placeholder="e.g. 1.5K views" />
               </div>
               <div className={styles.inputGroup}>
-                <label>Upload Time</label>
+                <label>Upload Time (Required)</label>
                 <input required type="text" value={formData.time} onChange={e => setFormData({...formData, time: e.target.value})} placeholder="e.g. 2 days ago" />
               </div>
             </div>

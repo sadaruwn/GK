@@ -31,9 +31,12 @@ export default function Sidebar() {
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
         <div className={styles.logoContainer}>
           <img 
-            src="https://cdn-icons-png.flaticon.com/512/1061/1061370.png" 
+            src="/admin-logo.png" 
             alt="Logo" 
             className={styles.sidebarLogo}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png';
+            }}
           />
           <span className={styles.logoText}>Admin Panel</span>
         </div>

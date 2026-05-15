@@ -64,7 +64,7 @@ export default function TrendingVideos() {
                 <div className={styles.info}>
                   <h4 className={styles.videoTitle}>{video.title}</h4>
                   <p className={styles.meta}>
-                    {video.views} views • {video.time}
+                    {video.views} {video.views.toLowerCase().includes('view') ? '' : 'views'} • {video.time}
                   </p>
                 </div>
               </a>

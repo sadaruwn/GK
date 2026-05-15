@@ -23,6 +23,12 @@
   gap: 40px;
 }
 
+.logoImage {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
 .logo {
   display: flex;
   align-items: center;
