@@ -20,23 +20,18 @@ export default function SubscribeCTA() {
         
         <div className={styles.actions}>
           <div className={styles.stats}>
-            <div className={styles.statItem}>
-              <Users size={20} />
-              <span>10K+ Students</span>
+            <div className={styles.subscribeWrapper}>
+              <div 
+                className="g-ytsubscribe" 
+                data-channelid="UC6TYUtPYJLIcKIf03AtMvIg" 
+                data-layout="full" 
+                data-count="default"
+              ></div>
             </div>
             <div className={styles.statItem}>
               <Bell size={20} />
               <span>Stay Updated</span>
             </div>
-          </div>
-          
-          <div className={styles.subscribeWrapper}>
-            <div 
-              className="g-ytsubscribe" 
-              data-channelid="UC6TYUtPYJLIcKIf03AtMvIg" 
-              data-layout="full" 
-              data-count="default"
-            ></div>
           </div>
         </div>
       </div>
