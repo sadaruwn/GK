@@ -55,11 +55,15 @@ export default function QuizSection({ setId }: { setId?: string }) {
     const savedHistory = localStorage.getItem("gk_set_history");
     let parsedHistory: string[] = [];
     if (savedHistory) {
-      parsedHistory = JSON.parse(savedHistory);
-      setHistory(parsedHistory);
-      // If we are looking at a specific set that's already in history, mark it as submitted
-      if (setId && parsedHistory.includes(setId)) {
-        setSubmittedSets([setId]);
+      try {
+        parsedHistory = JSON.parse(savedHistory);
+        setHistory(parsedHistory);
+        // If we are looking at a specific set that's already in history, mark it as submitted
+        if (setId && parsedHistory.includes(setId)) {
+          setSubmittedSets([setId]);
+        }
+      } catch (e) {
+        console.error("Error parsing history:", e);
       }
     }
 
@@ -78,13 +82,15 @@ export default function QuizSection({ setId }: { setId?: string }) {
       console.error('Error fetching sets:', error);
     } else {
       const result = data || [];
-      if (!setId) {
-        setSets(result);
-      } else if (result.length > 0) {
-        setSets(result);
-      } else {
-        // Specific case: setId provided but not found in DB
-        setSets([]);
+      setSets(result);
+
+      // Auto-mark as submitted if found in history
+      const alreadySubmitted = result
+        .filter(s => parsedHistory.includes(s.id))
+        .map(s => s.id);
+      
+      if (alreadySubmitted.length > 0) {
+        setSubmittedSets(prev => [...new Set([...prev, ...alreadySubmitted])]);
       }
     }
     setLoading(false);

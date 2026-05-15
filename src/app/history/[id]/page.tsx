@@ -10,6 +10,19 @@ import { ChevronLeft } from "lucide-react";
 
 export default function HistoryDetailPage() {
   const params = useParams();
+  
+  // Hydration safety: ensure we have params before rendering dependent content
+  if (!params || !params.id) {
+    return (
+      <main className={styles.main}>
+        <Navbar />
+        <div className={styles.container} style={{marginTop: '40px', textAlign: 'center'}}>
+           <h2>Loading Question Sheet...</h2>
+        </div>
+      </main>
+    );
+  }
+
   const id = params.id as string;
 
   return (
