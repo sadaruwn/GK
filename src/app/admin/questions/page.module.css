@@ -43,6 +43,41 @@
   transform: translateY(-2px);
 }
 
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding-top: 60px;
+  }
+
+  .headerActions {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .convertHelperBtn, .addBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .optionsGrid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .formActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cancelBtn, .saveBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .title {
   font-size: 1.8rem;
   font-weight: 700;
