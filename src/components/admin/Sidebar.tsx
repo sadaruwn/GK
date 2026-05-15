@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileQuestion, Video, Settings, LogOut, Youtube } from "lucide-react";
+import { FileQuestion, Video, Settings, LogOut, Youtube } from "lucide-react";
 import styles from "./Sidebar.module.css";
 
 const MENU_ITEMS = [
-  { name: "Dashboard", icon: LayoutDashboard, path: "/admin" },
   { name: "Questions", icon: FileQuestion, path: "/admin/questions" },
   { name: "Trending Videos", icon: Video, path: "/admin/videos" },
   { name: "Settings", icon: Settings, path: "/admin/settings" },
