@@ -1,141 +1,138 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Save, Key, Globe, Link as LinkIcon, CheckCircle } from "lucide-react";
+import { Save, ShieldCheck, Key, Eye, EyeOff, Loader2 } from "lucide-react";
 import styles from "./page.module.css";
+import { supabase } from "@/lib/supabase";
 
-export default function AdminSettings() {
-  const [success, setSuccess] = useState<string | null>(null);
-  
-  // Form states
-  const [general, setGeneral] = useState({
-    siteName: "GK Learning",
-    email: "admin@gklearning.lk"
-  });
-
-  const [social, setSocial] = useState({
-    youtube: "https://www.youtube.com/channel/UC6TYUtPYJLIcKIf03AtMvIg",
-    facebook: "https://www.facebook.com/amarasriherath.lk/"
-  });
+export default function SettingsPage() {
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
+  const [message, setMessage] = useState({ type: "", text: "" });
 
   useEffect(() => {
-    const savedGeneral = localStorage.getItem("gk_settings_general");
-    if (savedGeneral) setGeneral(JSON.parse(savedGeneral));
-
-    const savedSocial = localStorage.getItem("gk_settings_social");
-    if (savedSocial) setSocial(JSON.parse(savedSocial));
+    fetchCurrentPassword();
   }, []);
 
-  const handleSaveGeneral = (e: React.FormEvent) => {
-    e.preventDefault();
-    localStorage.setItem("gk_settings_general", JSON.stringify(general));
-    showSuccess("General settings saved!");
+  const fetchCurrentPassword = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('admin_settings')
+        .select('value')
+        .eq('key', 'admin_password')
+        .single();
+
+      if (data) setPassword(data.value);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setFetching(false);
+    }
   };
 
-  const handleSaveSocial = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem("gk_settings_social", JSON.stringify(social));
-    showSuccess("Social links updated!");
+    if (!password) return;
+
+    setLoading(true);
+    setMessage({ type: "", text: "" });
+
+    try {
+      const { error } = await supabase
+        .from('admin_settings')
+        .upsert({ key: 'admin_password', value: password }, { onConflict: 'key' });
+
+      if (error) throw error;
+      setMessage({ type: "success", text: "Admin password updated successfully!" });
+    } catch (err) {
+      console.error(err);
+      setMessage({ type: "error", text: "Failed to update password. Try again." });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleUpdatePassword = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In a real app, we'd verify current password
-    showSuccess("Password updated successfully!");
-  };
-
-  const showSuccess = (msg: string) => {
-    setSuccess(msg);
-    setTimeout(() => setSuccess(null), 3000);
-  };
+  if (fetching) {
+    return (
+      <div className={styles.loadingContainer}>
+        <Loader2 className={styles.spinner} size={40} />
+        <p>Loading settings...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Platform Settings</h1>
-          <p className={styles.subtitle}>Manage your website configuration and security.</p>
-        </div>
-        {success && (
-          <div className={styles.successToast}>
-            <CheckCircle size={18} />
-            <span>{success}</span>
-          </div>
-        )}
+        <h1 className={styles.title}>System Settings</h1>
+        <p className={styles.subtitle}>Manage your administrative security and platform preferences.</p>
       </div>
 
-      <div className={styles.grid}>
-        {/* General Settings */}
+      <div className={styles.settingsGrid}>
         <div className={styles.settingsCard}>
           <div className={styles.cardHeader}>
-            <Globe size={20} className={styles.cardIcon} />
-            <h2>General Details</h2>
+            <ShieldCheck size={24} className={styles.cardIcon} />
+            <div className={styles.headerInfo}>
+              <h3>Security Settings</h3>
+              <p>Change your admin access password</p>
+            </div>
           </div>
-          <form className={styles.cardBody} onSubmit={handleSaveGeneral}>
+
+          <form onSubmit={handleSave} className={styles.form}>
             <div className={styles.inputGroup}>
-              <label>Website Name</label>
-              <input 
-                type="text" 
-                value={general.siteName}
-                onChange={e => setGeneral({...general, siteName: e.target.value})}
-              />
+              <label>Admin Access Password</label>
+              <div className={styles.inputWrapper}>
+                <Key className={styles.inputIcon} size={18} />
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter new password..."
+                  required
+                />
+                <button 
+                  type="button" 
+                  className={styles.eyeBtn}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              <p className={styles.inputHint}>This password is required to access the admin dashboard.</p>
             </div>
-            <div className={styles.inputGroup}>
-              <label>Contact Email</label>
-              <input 
-                type="email" 
-                value={general.email}
-                onChange={e => setGeneral({...general, email: e.target.value})}
-              />
-            </div>
-            <button type="submit" className={styles.saveBtn}><Save size={16} /> Save Changes</button>
+
+            {message.text && (
+              <div className={`${styles.message} ${styles[message.type]}`}>
+                {message.text}
+              </div>
+            )}
+
+            <button type="submit" className={styles.saveBtn} disabled={loading}>
+              {loading ? (
+                <>
+                  <Loader2 className={styles.spinnerSmall} size={18} />
+                  <span>Saving...</span>
+                </>
+              ) : (
+                <>
+                  <Save size={18} />
+                  <span>Save Password</span>
+                </>
+              )}
+            </button>
           </form>
         </div>
 
-        {/* Security Settings */}
-        <div className={styles.settingsCard}>
-          <div className={styles.cardHeader}>
-            <Key size={20} className={styles.cardIcon} />
-            <h2>Admin Security</h2>
-          </div>
-          <form className={styles.cardBody} onSubmit={handleUpdatePassword}>
-            <div className={styles.inputGroup}>
-              <label>Current Password</label>
-              <input type="password" placeholder="Enter current password" />
-            </div>
-            <div className={styles.inputGroup}>
-              <label>New Password</label>
-              <input type="password" placeholder="Enter new password" />
-            </div>
-            <button type="submit" className={styles.saveBtn}><Save size={16} /> Update Password</button>
-          </form>
-        </div>
-
-        {/* Social Links Settings */}
-        <div className={styles.settingsCard}>
-          <div className={styles.cardHeader}>
-            <LinkIcon size={20} className={styles.cardIcon} />
-            <h2>Social Media Links</h2>
-          </div>
-          <form className={styles.cardBody} onSubmit={handleSaveSocial}>
-            <div className={styles.inputGroup}>
-              <label>YouTube Channel URL</label>
-              <input 
-                type="url" 
-                value={social.youtube}
-                onChange={e => setSocial({...social, youtube: e.target.value})}
-              />
-            </div>
-            <div className={styles.inputGroup}>
-              <label>Facebook Page URL</label>
-              <input 
-                type="url" 
-                value={social.facebook}
-                onChange={e => setSocial({...social, facebook: e.target.value})}
-              />
-            </div>
-            <button type="submit" className={styles.saveBtn}><Save size={16} /> Save Links</button>
-          </form>
+        <div className={styles.infoCard}>
+          <h3>Security Tips</h3>
+          <ul className={styles.tipsList}>
+            <li>Use a mix of letters, numbers, and symbols.</li>
+            <li>Don't use easy passwords like '123456'.</li>
+            <li>Change your password regularly for better security.</li>
+            <li>If you forget this password, you can reset it via Supabase Dashboard.</li>
+          </ul>
         </div>
       </div>
     </div>
