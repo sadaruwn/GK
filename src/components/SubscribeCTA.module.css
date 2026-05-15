@@ -92,14 +92,14 @@
 
 .subscribeWrapper {
   background: white;
-  padding: 8px 16px;
+  padding: 12px 24px;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease;
-  transform: scale(1.2);
-  transform-origin: center;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 180px;
 }
 
 .subscribeWrapper:hover {
