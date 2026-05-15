@@ -20,13 +20,8 @@ export default function StickySubscribe() {
   return (
     <div className={`${styles.stickyBar} glass animate-slide-up`}>
       <div className={styles.content}>
-        <div className={styles.textGroup}>
-          <p className={styles.title}>Unlock Daily Secrets!</p>
-          <p className={styles.subtitle}>Subscribe to never miss an exam tip.</p>
-        </div>
-        
         <div className={styles.subscribeActions}>
-          {/* Official Google Widget - Great for Desktop */}
+          {/* Official Google Widget */}
           <div className={styles.officialWrapper}>
             <div 
               className="g-ytsubscribe" 
@@ -36,7 +31,7 @@ export default function StickySubscribe() {
             ></div>
           </div>
 
-          {/* Fallback Button - Essential for Mobile/Slow connections */}
+          {/* Fallback Button */}
           <a 
             href="https://www.youtube.com/channel/UC6TYUtPYJLIcKIf03AtMvIg?sub_confirmation=1" 
             target="_blank" 
