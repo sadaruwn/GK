@@ -1,0 +1,101 @@
+.adminLayout {
+  display: flex;
+  height: 100vh;
+  background-color: var(--bg-color);
+  overflow: hidden;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pageContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+}
+
+/* Login Styles */
+.loginOverlay {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+  padding: 20px;
+}
+
+.loginBox {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  animation: slideUp 0.3s ease-out;
+}
+
+.loginBox h2 {
+  color: white;
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+.loginBox p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.passwordInput {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  color: white;
+  font-family: inherit;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.passwordInput:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.errorText {
+  color: var(--primary) !important;
+  font-size: 0.85rem !important;
+  margin: 0 !important;
+}
+
+.loginBtn {
+  background: var(--primary);
+  color: white;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.loginBtn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .pageContent {
+    padding: 15px;
+  }
+}

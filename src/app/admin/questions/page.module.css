@@ -1,0 +1,263 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.convertHelperBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--surface-hover);
+  border: 1px solid var(--border-color);
+  color: var(--accent-color);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.convertHelperBtn:hover {
+  background-color: var(--border-color);
+  transform: translateY(-2px);
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.addBtn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* Form Styles */
+.formCard {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  animation: slideDown 0.3s ease-out;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.closeBtn {
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.closeBtn:hover {
+  color: var(--primary);
+  transform: rotate(90deg);
+}
+
+.formTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.inputGroup input,
+.inputGroup textarea,
+.inputGroup select {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  color: white;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Scrolling Questions Area */
+.questionsScroll {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-right: 10px;
+  margin: 10px 0;
+}
+
+.qBox {
+  background: rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.qHeader {
+  color: var(--accent-color);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-left: 3px solid var(--accent-color);
+  padding-left: 10px;
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.cancelBtn {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.cancelBtn:hover {
+  background: var(--surface-hover);
+}
+
+.saveBtn {
+  padding: 10px 24px;
+  background: var(--success-color);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.saveBtn:hover {
+  filter: brightness(1.1);
+}
+
+/* Table Styles */
+.tableCard {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 16px 24px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table th {
+  background: rgba(0,0,0,0.2);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.qText {
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  background: rgba(46, 125, 50, 0.2);
+  color: var(--success-color);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.actionBtn {
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.actionBtn:hover {
+  color: white;
+}
+
+.actionBtn.delete:hover {
+  color: var(--primary);
+}
