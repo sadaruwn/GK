@@ -1,7 +1,7 @@
 .footer {
   background: var(--bg-color);
   border-top: 1px solid var(--border-color);
-  padding: 60px 0 120px; /* Space for sticky bar */
+  padding: 60px 0 60px;
 }
 
 .container {

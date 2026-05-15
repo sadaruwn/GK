@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import QuizSection from "@/components/QuizSection";
 import TrendingVideos from "@/components/TrendingVideos";
-import StickySubscribe from "@/components/StickySubscribe";
 import Footer from "@/components/Footer";
 import styles from "./page.module.css";
 
@@ -12,7 +11,9 @@ export default function Home() {
       <Navbar />
       
       <div className={styles.container}>
-        <Hero />
+        <div className={styles.heroSection}>
+          <Hero />
+        </div>
         
         <div className={styles.contentGrid}>
           <div className={styles.mainColumn}>
@@ -26,7 +27,6 @@ export default function Home() {
       </div>
       
       <Footer />
-      <StickySubscribe />
     </main>
   );
 }
