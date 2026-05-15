@@ -1,26 +1,23 @@
 "use client";
 
-import { Bell, Menu, Search, User } from "lucide-react";
+import Link from "next/link";
+import { ExternalLink, User } from "lucide-react";
 import styles from "./Header.module.css";
 
 export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.left}>
-        <button className={styles.menuBtn}>
-          <Menu size={24} />
-        </button>
-        <div className={styles.searchBar}>
-          <Search size={18} className={styles.searchIcon} />
-          <input type="text" placeholder="Search..." className={styles.searchInput} />
-        </div>
+        {/* Breadcrumb or title placeholder */}
+        <span className={styles.breadcrumb}>Admin / Dashboard</span>
       </div>
       
       <div className={styles.right}>
-        <button className={styles.iconBtn}>
-          <Bell size={20} />
-          <span className={styles.badge}>3</span>
-        </button>
+        <Link href="/" className={styles.viewSiteBtn}>
+          <ExternalLink size={18} />
+          <span>View Site</span>
+        </Link>
+        
         <div className={styles.profile}>
           <div className={styles.avatar}>
             <User size={20} color="white" />
