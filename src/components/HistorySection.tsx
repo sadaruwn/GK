@@ -72,7 +72,7 @@ export default function HistorySection() {
   return (
     <div className={styles.feed}>
       <div className={styles.historyTitle}>
-        <HistoryIcon size={24} />
+        <HistoryIcon size={24} color="var(--primary)" />
         <h2>Past Question Sheets</h2>
       </div>
 
@@ -82,17 +82,18 @@ export default function HistorySection() {
         return (
           <div key={set.id} className={`${styles.setCard} ${isCompleted ? styles.completedCard : ''}`}>
             <div className={styles.setHeader}>
-              <div className={styles.setTag}>
+              <div className={styles.setTag} style={{background: isCompleted ? 'rgba(0, 230, 118, 0.1)' : 'rgba(255, 255, 255, 0.05)', color: isCompleted ? '#00e676' : 'var(--text-secondary)'}}>
                 {isCompleted ? <CheckCircle2 size={16} /> : <HistoryIcon size={16} />}
-                <span>{isCompleted ? "Completed Sheet" : "Past Sheet"}</span>
+                <span>{isCompleted ? "COMPLETED SHEET" : "PAST SHEET"}</span>
               </div>
               <span className={styles.setDate}>{set.date}</span>
             </div>
 
             <div className={styles.historyPreview}>
-              <p className={styles.qText}>{set.questions[0]?.text.substring(0, 80)}...</p>
+              <p className={styles.historyText}>{set.questions[0]?.text}</p>
               <div className={styles.historyMeta}>
                 <span>{set.questions.length} Questions</span>
+                <div className={styles.metaDivider}></div>
                 <a 
                   href={set.youtube_link} 
                   target="_blank" 
@@ -106,8 +107,8 @@ export default function HistorySection() {
             </div>
             
             <div className={styles.historyActions}>
-               <a href={`/history/${set.id}`} className={styles.retryBtn}>
-                  <span>Review Questions</span>
+               <a href={`/history/${set.id}`} className={isCompleted ? styles.retryBtn : styles.attemptBtn}>
+                  <span>{isCompleted ? "Review Questions" : "Attempt These Questions"}</span>
                   <ArrowRight size={16} />
                </a>
             </div>

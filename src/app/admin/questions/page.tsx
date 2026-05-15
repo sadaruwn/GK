@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit2, Trash2, X, PlusCircle, Trash, RefreshCw } from "lucide-react";
+import { Plus, Edit2, Trash2, X, PlusCircle, Trash, RefreshCw, Copy, Link as LinkIcon } from "lucide-react";
 import styles from "./page.module.css";
 import { supabase } from "@/lib/supabase";
 
@@ -54,6 +54,13 @@ export default function QuestionsManagement() {
       setSets(data || []);
     }
     setLoading(false);
+  };
+
+  const handleCopyLink = (id: string) => {
+    const baseUrl = window.location.origin;
+    const fullUrl = `${baseUrl}/history/${id}`;
+    navigator.clipboard.writeText(fullUrl);
+    alert("Link copied to clipboard! You can now paste this in your YouTube description.");
   };
 
   const handleQuestionChange = (index: number, text: string) => {
@@ -213,6 +220,7 @@ export default function QuestionsManagement() {
               <tr>
                 <th>Date</th>
                 <th>Set Content</th>
+                <th>Share Link</th>
                 <th>Questions</th>
                 <th>Actions</th>
               </tr>
@@ -222,6 +230,12 @@ export default function QuestionsManagement() {
                 <tr key={s.id}>
                   <td>{s.date}</td>
                   <td className={styles.qText}>Set: {s.questions[0]?.text.substring(0, 30)}...</td>
+                  <td>
+                    <button className={styles.copyLinkBtn} onClick={() => handleCopyLink(s.id)}>
+                      <Copy size={14} />
+                      <span>Copy YouTube Link</span>
+                    </button>
+                  </td>
                   <td><span className={styles.badge}>{s.questions.length} Questions</span></td>
                   <td>
                     <div className={styles.actions}>

@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Join 10,000+ students. Watch full video explanations, test your skills, and improve your rank daily.",
 };
 
+import UserAuth from "@/components/UserAuth";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${notoNo.className}`}>
+        <UserAuth />
         {children}
         <Script src="https://apis.google.com/js/platform.js" strategy="lazyOnload" />
       </body>

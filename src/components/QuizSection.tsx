@@ -76,13 +76,7 @@ export default function QuizSection({ setId }: { setId?: string }) {
     if (error) {
       console.error('Error fetching sets:', error);
     } else {
-      const result = data || [];
-      if (!setId) {
-        // On home page, only show if NOT in history
-        setSets(result.filter((s: any) => !parsedHistory.includes(s.id)));
-      } else {
-        setSets(result);
-      }
+      setSets(data || []);
     }
     setLoading(false);
   };
