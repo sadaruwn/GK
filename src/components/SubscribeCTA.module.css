@@ -125,12 +125,12 @@
 }
 
 /* Hide fallback if official widget is present and has children */
-:global(.g-ytsubscribe:not(:empty)) + .fallbackBtn {
+.subscribeWrapper :global(.g-ytsubscribe:not(:empty)) + .fallbackBtn {
   display: none;
 }
 
 /* If official widget is loading/failed, it might be empty or have a specific height */
-:global(.g-ytsubscribe) {
+.subscribeWrapper :global(.g-ytsubscribe) {
   display: inline-block;
   min-height: 24px;
 }
