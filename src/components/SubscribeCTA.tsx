@@ -1,7 +1,21 @@
-import { Youtube, Bell, Users } from "lucide-react";
+"use client";
+
+import { Youtube, Bell, Users, ExternalLink } from "lucide-react";
 import styles from "./SubscribeCTA.module.css";
+import { useEffect } from "react";
 
 export default function SubscribeCTA() {
+  useEffect(() => {
+    // Re-initialize the YouTube subscribe button if gapi is available
+    if (typeof window !== "undefined" && (window as any).gapi) {
+      try {
+        (window as any).gapi.ytsubscribe.go();
+      } catch (error) {
+        console.error("Error re-initializing YouTube widget:", error);
+      }
+    }
+  }, []);
+
   return (
     <section className={styles.container}>
       <div className={`${styles.card} glass`}>
@@ -21,12 +35,25 @@ export default function SubscribeCTA() {
         <div className={styles.actions}>
           <div className={styles.stats}>
             <div className={styles.subscribeWrapper}>
+              {/* Official Google Widget */}
               <div 
                 className="g-ytsubscribe" 
                 data-channelid="UC6TYUtPYJLIcKIf03AtMvIg" 
                 data-layout="full" 
                 data-count="default"
               ></div>
+              
+              {/* Fallback button that shows if widget fails or loads slowly */}
+              <a 
+                href="https://www.youtube.com/channel/UC6TYUtPYJLIcKIf03AtMvIg?sub_confirmation=1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.fallbackBtn}
+              >
+                <Youtube size={18} />
+                <span>Subscribe</span>
+                <ExternalLink size={14} />
+              </a>
             </div>
             <div className={styles.statItem}>
               <Bell size={20} />

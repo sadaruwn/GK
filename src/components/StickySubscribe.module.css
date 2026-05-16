@@ -52,7 +52,23 @@
 }
 
 .fallbackBtn {
-  display: none; /* Hide if we want to focus on the official big widget */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ff0000;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  animation: pulse 2s infinite;
+}
+
+/* Hide fallback if official widget is present and has children */
+.officialWrapper:has(:global(.g-ytsubscribe:not(:empty))) + .fallbackBtn {
+  display: none;
 }
 
 @keyframes pulse {

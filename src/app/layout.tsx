@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${notoNo.className}`}>
         <UserAuth />
         {children}
-        <Script src="https://apis.google.com/js/platform.js" strategy="lazyOnload" />
+        <Script src="https://apis.google.com/js/platform.js" strategy="afterInteractive" />
       </body>
     </html>
   );

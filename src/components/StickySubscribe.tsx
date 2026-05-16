@@ -11,7 +11,15 @@ export default function StickySubscribe() {
   useEffect(() => {
     setIsMounted(true);
     // Show after a short delay
-    const timer = setTimeout(() => setIsVisible(true), 2000);
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+      // Re-initialize the YouTube subscribe button if gapi is available
+      if (typeof window !== "undefined" && (window as any).gapi) {
+        try {
+          (window as any).gapi.ytsubscribe.go();
+        } catch (e) {}
+      }
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
