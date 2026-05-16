@@ -66,8 +66,8 @@
   animation: pulse 2s infinite;
 }
 
-/* Hide fallback if official widget is present and has children */
-.officialWrapper:has(:global(.g-ytsubscribe:not(:empty))) + .fallbackBtn {
+/* Hide fallback on desktop if official widget iframe is injected */
+.officialWrapper:has(iframe) + .fallbackBtn {
   display: none;
 }
 
@@ -111,5 +111,10 @@
     justify-content: center;
     padding: 16px;
     font-size: 1.1rem;
+  }
+  
+  /* Force fallback button to show on mobile, overriding any hiding logic */
+  .officialWrapper:has(iframe) + .fallbackBtn {
+    display: flex;
   }
 }

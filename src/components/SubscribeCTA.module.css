@@ -99,6 +99,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 15px;
   min-width: 180px;
   min-height: 50px;
   position: relative;
@@ -124,12 +125,12 @@
   transform: scale(1.05);
 }
 
-/* Hide fallback if official widget is present and has children */
-.subscribeWrapper :global(.g-ytsubscribe:not(:empty)) + .fallbackBtn {
+/* Hide fallback if official widget iframe is injected */
+.subscribeWrapper:has(iframe) .fallbackBtn {
   display: none;
 }
 
-/* If official widget is loading/failed, it might be empty or have a specific height */
+/* If official widget is loading/failed, provide minimum height */
 .subscribeWrapper :global(.g-ytsubscribe) {
   display: inline-block;
   min-height: 24px;
